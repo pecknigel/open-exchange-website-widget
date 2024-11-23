@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width'>
+    <meta name="author" content="RO">
+    <title>Website Widget</title>
+    <link rel='stylesheet' href='style.css'>
+    <script src="index.js" defer></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <button id="portrait-button">Portrait Display</button>
+      <button id="landscape-button">Landscape Display</button>
+      <p id="widget-error">Unable to fetch prices. Try again later.</p>
+      <template id="widget">
+        <article class="widget flow hidden">
+          <h2>Market prices</h2>
+          <table class="widget-table" summary="Shows ticker id's with current prices.">
+            <thead>
+              <tr>
+                <th scope="col">Ticker Id</th>
+                <th scope="col">Price</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="widget-currencies">
+            <button id="buttonPound">£</button>
+            <button id="buttonDollar">$</button>
+            <button id="buttonEuro">€</button>
+            <button id="buttonYen">¥</button>
+          </div>
+        </article>
+      </template>
+      <template id="widget-price-template">
+        <tr>
+          <th scope="row"></th>
+          <td></td>
+        </tr>
+      </template>
+      <template id="widget-price-template-collapsed">
+        <tr>
+          <th scope="col"></th>
+        </tr>
+        <tr>
+          <td></td>
+        </tr>
+      </template>
+    </div>
+  </body>
+</html>
