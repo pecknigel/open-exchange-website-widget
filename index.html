@@ -10,14 +10,14 @@
     <script src="index.js" defer></script>
   </head>
   <body>
-    <div class="wrapper">
+    <div id="widget-wrapper" class="wrapper">
       <button id="portrait-button">Portrait Display</button>
       <button id="landscape-button">Landscape Display</button>
       <p id="widget-error">Unable to fetch prices. Try again later.</p>
-      <template id="widget">
-        <article class="widget flow hidden">
-          <h2>Market prices</h2>
-          <table class="widget-table" summary="Shows ticker id's with current prices.">
+      <template id="widget-template">
+        <article class="widget flow" aria-label="Widget for crypto tickers' market prices.">
+          <h2 id="widget-table-caption">Market prices</h2>
+          <table class="widget-table" aria-describedby="widget-table-caption">
             <thead>
               <tr>
                 <th scope="col">Ticker Id</th>
@@ -34,13 +34,13 @@
           </div>
         </article>
       </template>
-      <template id="widget-price-template">
+      <template id="widget-row-template">
         <tr>
           <th scope="row"></th>
           <td></td>
         </tr>
       </template>
-      <template id="widget-price-template-collapsed">
+      <template id="widget-row-template-collapsed">
         <tr>
           <th scope="col"></th>
         </tr>

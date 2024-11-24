@@ -1,7 +1,7 @@
 /* Global */
 :root {
-  --text-color: #ffffff;
-  --background-color: #181818;
+  --global-text-color: #ffffff;
+  --global-background-color: #181818;
 }
 
 * {
@@ -16,8 +16,8 @@ body {
   align-content: center;
   font-family: system-ui;
   font-size: 1.333rem;
-  color: #ffffff;
-  background: var(--background-color);
+  color: var(--global-text-color);
+  background: var(--global-background-color);
 }
 
 /* Utilities */
@@ -40,19 +40,18 @@ body {
   --widget-border-color: #ffffff;
   --widget-border-radius: calc(var(--widget_padding) / 2);
 
-  box-sizing: border-box;
   max-width: var(--_widget-max-width);
   margin-inline: auto;
   padding: var(--widget_padding);
   border-radius: var(--widget-border-radius);
-  background: var(--widget_background);
   text-align: center;
+  background: var(--widget_background);
 }
 
 .widget-table {
   width: 100%;
-  text-align: left;
   border-collapse: collapse;
+  text-align: left;
 }
 
 .widget-table :where(th, td) {
@@ -64,7 +63,8 @@ body {
 [data-display="landscape"] table {
   rotate: 90deg;
 }
-[data-display="landscape"] :is(th, td) {
+[data-display="landscape"] th,
+[data-display="landscape"] td {
   rotate: -90deg;
 }
 [data-display="landscape"] thead {
@@ -83,8 +83,8 @@ body {
 /* Widget base styles */
 .widget button {
   font: inherit;
+  border: 0;
   color: inherit;
   background: 0;
-  border: 0;
   cursor: pointer;
 }
