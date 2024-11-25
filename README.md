@@ -3,7 +3,7 @@
 
 This is an implementation of a client for the [Trading Exchange Collaborative Learning Program](https://github.com/pecknigel/trading-exchange-collaborative-learning) from the [Prescription Free Academy of Web Development and Software Engineering](https://prescriptionfree.academy/).
 
-It constitutes a widget for displaying ticket prices on a website.
+It constitutes a widget for displaying ticker prices on a website.
 
 ## What’s all this about?
 
