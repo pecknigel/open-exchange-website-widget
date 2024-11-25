@@ -1,7 +1,7 @@
 
 # Open Exchange Website Widget
 
-This is an implementation of a client for the [Trading Exchange Collaborative Learning Program](https://github.com/pecknigel/trading-exchange-collaborative-learning) from the [Prescription Free Academy of Web Development and Software Engineering](https://prescriptionfree.academy/).
+This is an implementation of a client for the [Trading Exchange Collaborative Learning Program](https://github.com/pecknigel/trading-exchange-collaborative-learning) from the [Prescription Free Academy](https://prescriptionfree.academy/) of Web Development and Software Engineering.
 
 It constitutes a widget for displaying ticker prices on a website.
 
