@@ -19,7 +19,7 @@ See the [program repo](https://github.com/pecknigel/trading-exchange-collaborati
 
 TODO: Rohan?
 
-### Specification
+## Specification
 
 See [The Client](https://github.com/pecknigel/trading-exchange-collaborative-learning/blob/main/System-Architecture.md#the-client) for more about the system layer that this project implements.
 
