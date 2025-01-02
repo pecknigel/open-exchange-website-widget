@@ -1,3 +1,4 @@
+// Create element instead of templates
 const mockData = {
   TSM: 97.40377661117827,
   DTO: 51.35884532641455,
@@ -5,41 +6,47 @@ const mockData = {
   JFC: 97.83627459809185
 };
 
-const widgetElement = document.querySelector(".widget");
-const table = document.querySelector(".widget-table tbody");
-const error = document.getElementById("widget-error");
 const widgetTemplate = document.getElementById("widget-template");
 const rowTemplate = document.getElementById("widget-row-template");
+const widgetWrapper = document.getElementById("widget-wrapper");
+const error = document.getElementById("widget-error");
 const currencyTypes = ["Pound", "Dollar", "Euro", "Yen"];
 let currentCurrency = "£"; // set default currency based off region.
 
 configure();
 
-// configuration
 function configure() {
   renderTable()
-
-  currencyTypes.forEach(currency => {
-    const button = document.getElementById(`button${currency}`)
-    button.addEventListener("click", () => updateCurrency(currency))
-  })
 }
 
 // Widget Functions
 function renderTable() {
+  const widgetElement = document.querySelector(".widget");
   const templateClone = widgetTemplate.content.cloneNode(true);
 
-  // Removes and adds the widget element.
+  // Remove the widget element.
   if (widgetElement) widgetElement.remove();
-  document.getElementById("widget-wrapper").appendChild(templateClone);
+
+  // Add currency button event listeners
+  currencyTypes.forEach(currency => {
+    const button = templateClone.getElementById(`button${currency}`);
+    button.addEventListener("click", () => updateCurrency(currency));
+  })
+
+  // Adds the widget element.
+  widgetWrapper.appendChild(templateClone);
 
   // Adds the table rows.
+  const table = document.querySelector(".widget-table tbody");
   for (const [key, value] of Object.entries(mockData)) {
     table.appendChild(addTableRow(key, value));
   }
 
   // Hides the error message.
   error.classList.add("hidden");
+
+  // Configure temporary debug tools
+  configureDebug();
 }
 
 function addTableRow(tickerId, price) {
@@ -50,6 +57,7 @@ function addTableRow(tickerId, price) {
 }
 
 function updateCurrency(newCurrency) {
+  console.log("# run updateCurrency")
   switch (newCurrency) {
     case "Pound":
       currentCurrency = "£";
@@ -64,12 +72,16 @@ function updateCurrency(newCurrency) {
       currentCurrency = "¥";
       break;
   }
+  console.log('newCurrency = ', newCurrency);
+  console.log('currentCurrency = ', currentCurrency);
   renderTable()
 }
 
-// Debug tools
-const portraitButton = document.getElementById("portrait-button");
-const landscapeButton = document.getElementById("landscape-button");
+function configureDebug() {
+  const widgetElement = document.querySelector(".widget");
+  const portraitButton = document.getElementById("portrait-button");
+  const landscapeButton = document.getElementById("landscape-button");
 
-portraitButton.addEventListener("click", () => widgetElement.dataset.display = "portrait");
-landscapeButton.addEventListener("click", () => widgetElement.dataset.display = "landscape");
+  portraitButton.addEventListener("click", () => widgetElement.dataset.display = "portrait");
+  landscapeButton.addEventListener("click", () => widgetElement.dataset.display = "landscape");
+}
