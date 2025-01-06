@@ -10,19 +10,24 @@ let currentCurrency = "£";
 
 class Widget {
   base;
+  identifier;
   baseElement;
   baseLocation;
 
-  constructor(baseElement="div", baseLocation="body") {
+  constructor(identifier, baseElement="div", baseLocation="body") {
+    this.identifier = identifier;
     this.baseElement = baseElement;
     this.baseLocation = baseLocation;
 
+    if (!identifier) {
+      throw new Error("Missing identifier");
+    }
     this.renderWidget();
     this.configureButtons();
   }
 
   renderWidget() {
-    if (document.querySelector(".widget")) document.querySelector(".widget").remove();
+    if (document.querySelector(`#${this.identifier}`)) document.querySelector(`#${this.identifier}`).remove();
     this.createBase();
     this.createTable();
   }
@@ -30,6 +35,7 @@ class Widget {
   createBase() {
     this.base = document.createElement(this.baseElement);
     document.querySelector(this.baseLocation).appendChild(this.base);
+    this.base.id = this.identifier;
     this.base.classList.add("widget");
   }
 
@@ -80,4 +86,4 @@ class Widget {
   }
 }
 
-const tickerWidget = new Widget();
+const tickerWidget = new Widget("widget-7642");
