@@ -5,44 +5,47 @@ const mockData = {
   JFC: 97.83627459809185
 };
 
-const currencyTypes = ["Pound", "Dollar", "Euro", "Yen"];
-let currentCurrency = "£";
-
 class Widget {
-  base;
-  identifier;
-  baseElement;
-  baseLocation;
+  currencyTypes;
+  currentCurrency
+  shadowDom;
+  location;
 
-  constructor(identifier, baseElement="div", baseLocation="body") {
-    this.identifier = identifier;
-    this.baseElement = baseElement;
-    this.baseLocation = baseLocation;
+  constructor(location) {
+    this.currencyTypes = ["Pound", "Dollar", "Euro", "Yen"];
+    this.currentCurrency = "£";
+    this.location = location;
 
-    if (!identifier) {
-      throw new Error("Missing identifier");
-    }
-    this.renderWidget();
-    this.configureButtons();
-  }
-
-  renderWidget() {
-    if (document.querySelector(`#${this.identifier}`)) document.querySelector(`#${this.identifier}`).remove();
-    this.createBase();
+    this.errorCheck();
+    this.createShadowDom();
     this.createTable();
+    // this.configureButtons();
   }
 
-  createBase() {
-    this.base = document.createElement(this.baseElement);
-    document.querySelector(this.baseLocation).appendChild(this.base);
-    this.base.id = this.identifier;
-    this.base.classList.add("widget");
+  errorCheck() {
+    if (!this.location) {
+      throw new Error("Missing location");
+    } else if (typeof this.location !== "string") {
+      throw new Error("Location is not a string type");
+    } else if (document.querySelectorAll(this.location).length < 1) {
+      throw new Error("Location doesn't exist");
+    } else if (document.querySelectorAll(this.location).length > 1) {
+      throw new Error("Location is present in more than one place.");
+    }
+  }
+
+  createShadowDom() {
+    this.shadowDom = document.querySelector(this.location).attachShadow({mode: "closed"});
+    // implement styles and elements
   }
 
   createTable() {
     const table = document.createElement("table");
+    const thead = document.createElement("thead");
     const tbody = document.createElement("tbody");
+    table.appendChild(thead);
     table.appendChild(tbody);
+    thead.appendChild(document.createElement("tr"));
 
     for (const [key, value] of Object.entries(mockData)) {
       const tr = document.createElement("tr");
@@ -52,17 +55,18 @@ class Widget {
       tr.appendChild(td);
       th.textContent = key;
       th.scope = "row";
-      td.textContent = `${currentCurrency}${value.toFixed(2)}`;
+      td.textContent = `${this.currentCurrency}${value.toFixed(2)}`;
 
       tbody.appendChild(tr);
     }
 
-    this.base.appendChild(table);
+    if (this.shadowDom.querySelector("table")) this.shadowDom.querySelector("table").remove();
+    this.shadowDom.appendChild(table);
   }
 
   configureButtons() {
-    currencyTypes.forEach(currency => {
-      const button = this.base.getElementById(`button${currency}`);
+    this.currencyTypes.forEach(currency => {
+      const button = this.location.getElementById(`button${currency}`);
       button.addEventListener("click", () => this.updateCurrency(currency));
     })
   }
@@ -70,20 +74,20 @@ class Widget {
   updateCurrency(newCurrency) {
     switch (newCurrency) {
       case "Pound":
-        currentCurrency = "£";
+        this.currentCurrency = "£";
         break;
       case "Dollar":
-        currentCurrency = "$";
+        this.currentCurrency = "$";
         break;
       case "Euro":
-        currentCurrency = "€";
+        this.currentCurrency = "€";
         break;
       case "Yen":
-        currentCurrency = "¥";
+        this.currentCurrency = "¥";
         break;
     }
-    this.renderWidget();
+    this.createTable();
   }
 }
 
-const tickerWidget = new Widget("widget-7642");
+const tickerWidget = new Widget("#widget-goes-here");
